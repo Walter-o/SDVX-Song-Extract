@@ -11,7 +11,7 @@ relativeMusicDbPath = "data/others/music_db.xml"
 outputDir = "SDVX Music"
 
 audioFormats = {
-    "mp3": "MP3 320kbps  (verly gud bang for your disk space buck)",
+    "mp3": "MP3 V0       (verly gud bang for your disk space buck)",
     "wav": "WAV 1411kbps (only choose this if you hate .ASF format)",
     "asf": "ASF VBR      (Original, lol .s3v is just .asf but renamed)"
     }
@@ -61,8 +61,8 @@ def extractSongs(songPaths, format, metadatas):
     if not os.path.exists(outputFolder):
         os.makedirs(outputFolder)
     cmd = {
-        "wav": '''ffmpeg.exe -i "%s" -metadata title="%s" -metadata author="%s" -metadata genre="%s" "%s"''',
-        "mp3": '''ffmpeg.exe -i "%s" -metadata title="%s" -metadata artist="%s" -metadata genre="%s" -ar 44100 -b:a 320k "%s"''',
+        "wav": '''ffmpeg.exe -i "%s" -id3v2_version 3 -metadata title="%s" -metadata author="%s" -metadata genre="%s" "%s"''',
+        "mp3": '''ffmpeg.exe -i "%s" -id3v2_version 3 -metadata title="%s" -metadata artist="%s" -metadata genre="%s" -q:a 0 "%s"''',
         "asf": False
         }[format]
     for songPath in songPaths:
@@ -71,7 +71,6 @@ def extractSongs(songPaths, format, metadatas):
         if not os.path.exists(outputFile):
             songId = filename.split("_")[0]
             metadata = metadatas[int(songId)]
-            
             subprocess.call(cmd % (
                 songPath, 
                 metadata["title"], metadata["author"], metadata["genre"],
