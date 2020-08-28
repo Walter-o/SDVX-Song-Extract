@@ -1,0 +1,24 @@
+Okay so here's the guide to using this program:
+
+- Try giving paths that only use forward slashes "/" and no leading slashes
+
+example: "C:/Games/SDVX5"
+
+formats:
+
+mp3 - Normal mp3 at 44100 hz and 320kbps, i can't give warranty that quality isn't
+      lost here because i don't know how the .asf format works. From what i've
+      read about the format is that it supports DRM protection, but in true
+      konami fashion it's just disabled, lol.
+
+wav - FFMPEG auto-selects 1411kbps so yeah should be lossless but filesize is not
+      the best. After some researching it looks like it's caused by the audio
+      having a variable bitrate (VBR). So yeah best option is to just listen to
+      the .asf files or convert it to this i guess
+
+asf - Basically the exact same file used ingame but only the extension name changed
+      from .s3v to .asf   weird but ok, way better than wasting an entire day
+      reverse engineering
+
+ok good luck!
+-Walter
