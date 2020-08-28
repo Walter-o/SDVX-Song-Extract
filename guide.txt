@@ -1,5 +1,9 @@
 Okay so here's the guide to using this program:
 
+EDIT - Github sucks, i cant upload files larger than 25 MB.
+there needs to be ffmpeg.exe in the same folder as app.py its easily findable with google
+
+
 - Try giving paths that only use forward slashes "/" and no leading slashes
 
 example: "C:/Games/SDVX5"
