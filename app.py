@@ -80,6 +80,11 @@ def extractSongs(songPaths, format, metadatas):
         outputFile = os.path.join(outputFolder, filename[:-3] + format)
         if not os.path.exists(outputFile):
             songId = filename.split("_")[0]
+
+            #skip songs with broken metadata
+            if int(songId) not in metadatas:
+                continue
+
             metadata = metadatas[int(songId)]
             subprocess.call(cmd % (
                 songPath, 
