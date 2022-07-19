@@ -26,11 +26,21 @@ def CLI():
     # Fetch game folder path
     while True:
         gameFolder = input("Insert path to SDVX folder > ")
-        if os.path.exists(gameFolder) and "soundvoltex.dll" in os.listdir(gameFolder):
-            print("OK, that path looks legit, yesssss")
-            break
+        if os.path.exists(gameFolder):
+            #check if user entered parent folder instead
+            if "contents" in os.listdir(gameFolder):
+                gameFolder = os.path.join(gameFolder, "contents")
+
+            #prioritise modules folder
+            checkPath = os.path.join(gameFolder, "modules") if ("modules" in os.listdir(gameFolder)) else gameFolder
+            
+            if "soundvoltex.dll" in (os.listdir(checkPath)):
+                print("OK, that path looks legit, yesssss")
+                break
+            else:
+                print("I can't see any soundvoltex.dll here :C")
         else:
-            print("I can't see any soundvoltex.dll here :C")
+            print(f"Invalid folder entered:  \"{gameFolder}\"", end="\n\n")
     # Fetch audio format choice
     while True:
         print("Choose your format!\n", "-"*30)
@@ -70,6 +80,11 @@ def extractSongs(songPaths, format, metadatas):
         outputFile = os.path.join(outputFolder, filename[:-3] + format)
         if not os.path.exists(outputFile):
             songId = filename.split("_")[0]
+
+            #skip songs with broken metadata
+            if int(songId) not in metadatas:
+                continue
+
             metadata = metadatas[int(songId)]
             subprocess.call(cmd % (
                 songPath, 
